@@ -7,6 +7,24 @@
     <link href="./style.css" rel="stylesheet" />
   </head>
   <body>
+    <div class="config">
+      <h1>Etch-a-Sketch</h1>
+      <p>Have fun</p>
+      <div>
+        <input
+          type="range"
+          id="slidervalue"
+          name="cowbell"
+          min="2"
+          max="100"
+          value="4"
+          step="1"
+        />
+        <label for="slidervalue" class="slidervalue">4x4</label>
+      </div>
+      <button type="button" class="applyButton">Apply</button>
+    </div>
+    <div class="sketch"></div>
     <script src="./script.js"></script>
   </body>
 </html>
