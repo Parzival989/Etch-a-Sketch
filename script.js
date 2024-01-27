@@ -2,7 +2,10 @@
 const slider = document.querySelector("#slidervalue");
 const sliderLabel = document.querySelector(".slidervalue");
 const applyButton = document.querySelector(".applyButton");
-const sketch = document.querySelector(".sketch");
+const sketch = document.querySelector(".board");
+const rowClass = document.querySelector(".row");
+const fieldClass = document.querySelector(".field");
+let playBoardAdded = false;
 
 /*Moving Slider*/
 
@@ -13,38 +16,40 @@ slider.addEventListener("change", () => {
 });
 
 let value = parseInt(slider.value);
-console.log(value);
 
 /* generating Div*/
 applyButton.addEventListener("click", () => {
   // get format
   let quadrat = slider.value;
-  // Create container div
-  let containerWidth = sketch.clientWidth;
-  let containerHeight = containerWidth;
-  let packageWidth = containerWidth / quadrat;
-  let packageHeight = packageWidth;
+  let sizeLengthDivider = quadrat * quadrat;
+  let htmlToBeInsert = "";
 
-  console.log(containerWidth);
+  sketch.innerHTML = "";
 
-  // Create Child container
-  let childContainer = document.createElement("div");
-  childContainer.style.width = `${containerWidth}px`;
-  childContainer.style.height = `${containerHeight}px`;
-  childContainer.classList.add("border");
-
-  // Create Fields of the child container
-  let newDiv = document.createElement("div");
-  newDiv.style.width = `${packageWidth}px`;
-  newDiv.style.height = `${packageHeight}px`;
-  newDiv.classList.add("border");
-
-  // inside Div
-  for (let i = 0; i < quadrat; i++) {
-    //Container
-    sketch.appendChild(childContainer);
-    for (let j = 0; j < quadrat; j++) {
-      // Child of container
+  /* Generate HTML */
+  for (let j = 0; j < quadrat; j++) {
+    htmlToBeInsert += `
+    <div class="row">
+    `;
+    for (let i = 0; i < quadrat; i++) {
+      htmlToBeInsert += `<div class="field"></div>`;
     }
+
+    htmlToBeInsert += `</div>`;
   }
+
+  /* Adjust attributes */
+  rowClass.style.height = `${sketch.clientHeight / sizeLengthDivider}px`;
+
+  let a = sketch.clientHeight / sizeLengthDivide;
+  fieldClass.style.width = `${a}px`;
+  fieldClass.style.height = `${a}px`;
+
+  console.log(sketch.clientHeight);
+  console.log(sketch.clientWidth);
+
+  console.log(fieldClass.clientHeight);
+  console.log(fieldClass.clientWidth);
+
+  sketch.innerHTML = htmlToBeInsert;
 });
