@@ -5,6 +5,8 @@ const applyButton = document.querySelector(".applyButton");
 const sketch = document.querySelector(".board");
 const rowClass = document.querySelector(".row");
 const fieldClass = document.querySelector(".field");
+const getInfoButton = document.querySelector(".getInfo");
+let a = 0;
 let playBoardAdded = false;
 
 /*Moving Slider*/
@@ -32,7 +34,7 @@ applyButton.addEventListener("click", () => {
     <div class="row">
     `;
     for (let i = 0; i < quadrat; i++) {
-      htmlToBeInsert += `<div id="field--${i}${j}"></div>`;
+      htmlToBeInsert += `<div id="field--${i}${j}" class="field" ></div>`;
     }
 
     htmlToBeInsert += `</div>`;
@@ -41,15 +43,27 @@ applyButton.addEventListener("click", () => {
   /* Adjust attributes */
   rowClass.style.height = `${sketch.clientHeight / sizeLengthDivider}px`;
 
-  let a = sketch.clientHeight / sizeLengthDivider;
+  a = sketch.clientHeight / sizeLengthDivider;
   //fieldClass.style.width = `${a}px`;
   //fieldClass.style.height = `${a}px`;
 
-  //fieldClass.style.width = "133px";
-  //fieldClass.style.height = "133px";
+  //document.querySelector(".field").offsetHeight = "133px";
 
   //document.getElementById("field--11").style.width;
 
   sketch.innerHTML = htmlToBeInsert;
   console.log(sketch);
+  console.log(document.querySelector(".field").offsetHeight);
+});
+
+/* */
+
+getInfoButton.addEventListener("click", () => {
+  console.log(document.querySelector(".field").offsetHeight);
+  console.log(document.querySelector(".field").offsetWidth);
+
+  let h = document.querySelector(".field").offsetHeight;
+  let w = document.querySelector(".field").offsetWidth;
+
+  document.querySelector(".field").style.width = `${w / a}px`;
 });
