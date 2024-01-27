@@ -32,7 +32,7 @@ applyButton.addEventListener("click", () => {
     <div class="row">
     `;
     for (let i = 0; i < quadrat; i++) {
-      htmlToBeInsert += `<div class="field"></div>`;
+      htmlToBeInsert += `<div id="field--${i}${j}"></div>`;
     }
 
     htmlToBeInsert += `</div>`;
@@ -41,15 +41,15 @@ applyButton.addEventListener("click", () => {
   /* Adjust attributes */
   rowClass.style.height = `${sketch.clientHeight / sizeLengthDivider}px`;
 
-  let a = sketch.clientHeight / sizeLengthDivide;
-  fieldClass.style.width = `${a}px`;
-  fieldClass.style.height = `${a}px`;
+  let a = sketch.clientHeight / sizeLengthDivider;
+  //fieldClass.style.width = `${a}px`;
+  //fieldClass.style.height = `${a}px`;
 
-  console.log(sketch.clientHeight);
-  console.log(sketch.clientWidth);
+  //fieldClass.style.width = "133px";
+  //fieldClass.style.height = "133px";
 
-  console.log(fieldClass.clientHeight);
-  console.log(fieldClass.clientWidth);
+  //document.getElementById("field--11").style.width;
 
   sketch.innerHTML = htmlToBeInsert;
+  console.log(sketch);
 });
