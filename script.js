@@ -1,69 +1,87 @@
-/* Elements */
-const slider = document.querySelector("#slidervalue");
-const sliderLabel = document.querySelector(".slidervalue");
+/* Global constans and variables */
+const boardSize = 600;
+let writeColor = "#ff0000";
+
+/* Selector */
+const board = document.querySelector(".board");
 const applyButton = document.querySelector(".applyButton");
-const sketch = document.querySelector(".board");
-const rowClass = document.querySelector(".row");
-const fieldClass = document.querySelector(".field");
-const getInfoButton = document.querySelector(".getInfo");
-let a = 0;
-let playBoardAdded = false;
+const sliderValue = document.getElementById("slidervalue");
+const sliderLabel = document.querySelector(".slidervalue");
+const writeButton = document.querySelector(".writeButton");
+const clearButton = document.querySelector(".clearButton");
+const clearAll = document.querySelector(".clearAll");
+const colorButton = document.querySelector(".colorButton");
+const colorValue = document.getElementById("favcolor");
 
-/*Moving Slider*/
+/* ApplyButton */
+applyButton.addEventListener("click", () => {
+  generateBoard(calculateSizeOfSide());
+});
 
-slider.addEventListener("change", () => {
-  let value = slider.value;
+/* calculateSizeOfSide */
+const calculateSizeOfSide = () => boardSize / sliderValue.value;
+
+/* Label */
+sliderValue.addEventListener("change", () => {
+  let value = `${sliderValue.value}`;
   let text = `${value} x ${value}`;
   sliderLabel.innerHTML = text;
 });
 
-let value = parseInt(slider.value);
-
-/* generating Div*/
-applyButton.addEventListener("click", () => {
-  // get format
-  let quadrat = slider.value;
-  let sizeLengthDivider = quadrat * quadrat;
-  let htmlToBeInsert = "";
-
-  sketch.innerHTML = "";
-
-  /* Generate HTML */
-  for (let j = 0; j < quadrat; j++) {
-    htmlToBeInsert += `
-    <div class="row">
-    `;
-    for (let i = 0; i < quadrat; i++) {
-      htmlToBeInsert += `<div id="field--${i}${j}" class="field" ></div>`;
-    }
-
-    htmlToBeInsert += `</div>`;
-  }
-
-  /* Adjust attributes */
-  rowClass.style.height = `${sketch.clientHeight / sizeLengthDivider}px`;
-
-  a = sketch.clientHeight / sizeLengthDivider;
-  //fieldClass.style.width = `${a}px`;
-  //fieldClass.style.height = `${a}px`;
-
-  //document.querySelector(".field").offsetHeight = "133px";
-
-  //document.getElementById("field--11").style.width;
-
-  sketch.innerHTML = htmlToBeInsert;
-  console.log(sketch);
-  console.log(document.querySelector(".field").offsetHeight);
-});
-
 /* */
 
-getInfoButton.addEventListener("click", () => {
-  console.log(document.querySelector(".field").offsetHeight);
-  console.log(document.querySelector(".field").offsetWidth);
+writeButton.addEventListener("click", () => {
+  setBackground(writeColor);
+});
 
-  let h = document.querySelector(".field").offsetHeight;
-  let w = document.querySelector(".field").offsetWidth;
+clearButton.addEventListener("click", () => {
+  setBackground("white");
+});
 
-  document.querySelector(".field").style.width = `${w / a}px`;
+/*setBackground*/
+
+const setBackground = (color) => {
+  for (let j = 0; j < sliderValue.value; j++) {
+    for (let l = 0; l < sliderValue.value; l++) {
+      let a = document.getElementById(`field--${j}${l}`);
+      a.addEventListener("mouseover", () => {
+        //a.style.background = `${color}`;
+        a.style.backgroundColor = color;
+      });
+    }
+  }
+};
+
+/* generate Board */
+const generateBoard = (size) => {
+  board.innerHTML = "";
+
+  for (let j = 0; j < sliderValue.value; j++) {
+    /* rows */
+    let rowDiv = document.createElement("div");
+    rowDiv.style.width = `${boardSize}px`;
+    rowDiv.style.height = `${size}px`;
+    rowDiv.classList.add("row");
+    board.appendChild(rowDiv);
+
+    /* fill rows */
+    for (let l = 0; l < sliderValue.value; l++) {
+      let myDiv = document.createElement("div");
+      myDiv.style.width = `${size}px`;
+      myDiv.style.height = `${size}px`;
+      myDiv.classList.add("border");
+      myDiv.id = `field--${j}${l}`;
+      rowDiv.appendChild(myDiv);
+    }
+  }
+};
+
+/* initial Value */
+generateBoard(calculateSizeOfSide());
+
+/**/
+colorButton.addEventListener("click", () => {
+  console.log(colorValue.value);
+  writeColor = colorValue.value;
+  setBackground(writeColor);
 });
